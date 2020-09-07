@@ -2,7 +2,7 @@ name: s3 deployment
 
 on:
   push:
-    branches: [develop]
+    branches: [develop] # the branch we want this to run on
 
 jobs:
   build:
@@ -24,17 +24,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: NPM install
+      - name: npm install
         run: npm i
-
-      - name: Build
+      
+      - name: build
         run: STAGE=dev npm run build
+      
+      - name: copy files to s3
+        run: aws s3 sync ./dist s3://youtube-actions-to-s3
 
-      - name: Copy files to s3
-        run: aws s3 sync ./dist s3://everlook-youtube
-
-      - name: Invalidate CDN cache
+      - name: Invalidate cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id E47813V7YVI72 \
+            --distribution-id E5WDKB9Z09WWL \
             --paths "/*"

@@ -13,7 +13,7 @@ const Counter = () => {
         className="px-4 py-2 mt-2 text-white bg-pink-400 rounded"
         onClick={() => setCount(count + 1)}
       >
-        Click mee!
+        Click me!
       </button>
     </div>
   );
