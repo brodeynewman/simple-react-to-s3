@@ -29,8 +29,6 @@ jobs:
 
       - name: Build
         run: STAGE=dev npm run build
-        env:
-          CI: true
 
       - name: Copy files to s3
         run: aws s3 sync ./dist s3://everlook-youtube
